@@ -12,6 +12,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.[hash].js',
+    publicPath: '/',
   },
   module: {
     // 어떤 파일을 가져와서 어떻게 변화시킬지
@@ -32,4 +33,10 @@ module.exports = {
       filename: 'index.html', // 빌드된 html 파일 이름
     }),
   ],
+  devServer: {
+    // contentBase: path.resolve(__dirname, 'dist'),
+    // hot: true,
+    open: true,
+    historyApiFallback: true,
+  },
 }
