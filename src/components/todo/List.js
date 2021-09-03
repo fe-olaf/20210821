@@ -81,7 +81,7 @@ function List() {
   return (
     <Container>
       <Item>
-        <ToggleButton completed type="checkbox" />
+        <ToggleButton completed={false} type="checkbox" />
         <Label completed>아이유 뮤비보기</Label>
         <DeleteButton />
       </Item>

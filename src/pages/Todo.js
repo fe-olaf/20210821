@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 import Input from '../components/todo/Input'
 import List from '../components/todo/List'
+import Footer from '../components/todo/Footer'
 
 const Container = styled.div`
   background: #fff;
@@ -16,6 +17,7 @@ function TodoPage() {
     <Container>
       <Input />
       <List />
+      <Footer />
     </Container>
   )
 }
