@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import Input from '../components/todo/Input'
+import List from '../components/todo/List'
 
 const Container = styled.div`
   background: #fff;
@@ -14,6 +15,7 @@ function TodoPage() {
   return (
     <Container>
       <Input />
+      <List />
     </Container>
   )
 }

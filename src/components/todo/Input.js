@@ -8,7 +8,7 @@ const CheckButton = styled.div`
   font-size: 0;
   position: absolute;
   top: 0;
-  left: -25px;
+  left: -32px;
   transform: rotate(90deg);
   height: 65px;
   width: 65px;
