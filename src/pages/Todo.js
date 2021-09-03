@@ -5,7 +5,12 @@ import Input from '../components/todo/Input'
 import List from '../components/todo/List'
 import Footer from '../components/todo/Footer'
 
-import { fetchTodos, updateTodo, deleteTodo } from '../services/todo'
+import {
+  fetchTodos,
+  updateTodo,
+  deleteTodo,
+  insertTodo,
+} from '../services/todo'
 
 const Container = styled.div`
   background: #fff;
@@ -23,6 +28,14 @@ function TodoPage() {
 
   async function fetchAndSetTodos() {
     setTodos(await fetchTodos())
+  }
+
+  const handleAddTodo = async (label) => {
+    const success = await insertTodo(label)
+
+    if (success) {
+      fetchAndSetTodos()
+    }
   }
 
   const handleUpdateDone = async (todo) => {
@@ -46,7 +59,7 @@ function TodoPage() {
 
   return (
     <Container>
-      <Input />
+      <Input onAddTodo={handleAddTodo} />
       <List
         todos={todos}
         onUpdateDone={handleUpdateDone}

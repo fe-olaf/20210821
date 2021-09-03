@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
 const Container = styled.div``
@@ -43,10 +43,22 @@ const Input = styled.input`
   box-sizing: border-box;
 `
 
-function EditInput() {
+function EditInput({ onAddTodo }) {
+  const [keyword, setKeyword] = useState('')
+
+  const handleEnter = (e) => {
+    if (e.key === 'Enter') {
+      onAddTodo(keyword)
+    }
+  }
+
+  const handleUpdateKeyword = (e) => {
+    setKeyword(e.target.value)
+  }
+
   return (
     <Container>
-      <Input />
+      <Input onKeyPress={handleEnter} onChange={handleUpdateKeyword} />
       <CheckButton checked={false} />
     </Container>
   )
