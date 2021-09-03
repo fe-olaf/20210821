@@ -43,7 +43,7 @@ const Input = styled.input`
   box-sizing: border-box;
 `
 
-function EditInput({ onAddTodo }) {
+function EditInput({ onAddTodo, onUpdateAllDone, isAllCompleted }) {
   const [keyword, setKeyword] = useState('')
 
   const handleEnter = (e) => {
@@ -59,7 +59,7 @@ function EditInput({ onAddTodo }) {
   return (
     <Container>
       <Input onKeyPress={handleEnter} onChange={handleUpdateKeyword} />
-      <CheckButton checked={false} />
+      <CheckButton checked={isAllCompleted} onClick={onUpdateAllDone} />
     </Container>
   )
 }

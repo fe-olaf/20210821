@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import styled from 'styled-components'
 
 import Input from '../components/todo/Input'
@@ -25,6 +25,11 @@ function TodoPage() {
   useEffect(() => {
     fetchAndSetTodos()
   }, [])
+
+  const isAllCompleted = useMemo(
+    () => todos.filter(({ isDone }) => isDone).length === todos.length,
+    [todos],
+  )
 
   async function fetchAndSetTodos() {
     setTodos(await fetchTodos())
@@ -57,9 +62,46 @@ function TodoPage() {
     }
   }
 
+  const handleUpdateAllDone = async () => {
+    // 하나라도 false 라면 false 를 true 로
+
+    // 모두 true 라면 false
+    if (isAllCompleted) {
+      Promise.all(
+        todos.map(async (todo) => {
+          await updateTodo({
+            ...todo,
+            isDone: false,
+          })
+        }),
+      )
+
+      fetchAndSetTodos()
+
+      return
+    }
+
+    const activeTodos = todos.filter(({ isDone }) => !isDone)
+
+    Promise.all(
+      activeTodos.map(async (todo) => {
+        await updateTodo({
+          ...todo,
+          isDone: true,
+        })
+      }),
+    )
+
+    fetchAndSetTodos()
+  }
+
   return (
     <Container>
-      <Input onAddTodo={handleAddTodo} />
+      <Input
+        onAddTodo={handleAddTodo}
+        onUpdateAllDone={handleUpdateAllDone}
+        isAllCompleted={isAllCompleted}
+      />
       <List
         todos={todos}
         onUpdateDone={handleUpdateDone}
