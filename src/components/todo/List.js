@@ -77,14 +77,18 @@ const DeleteButton = styled.button`
   }
 `
 
-function List() {
+function List({ todos }) {
   return (
     <Container>
-      <Item>
-        <ToggleButton completed={false} type="checkbox" />
-        <Label completed>아이유 뮤비보기</Label>
-        <DeleteButton />
-      </Item>
+      {todos.map(({ id, label, isDone }) => {
+        return (
+          <Item key={id}>
+            <ToggleButton completed={isDone} type="checkbox" />
+            <Label completed={isDone}>{label}</Label>
+            <DeleteButton />
+          </Item>
+        )
+      })}
     </Container>
   )
 }

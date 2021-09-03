@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import Input from '../components/todo/Input'
@@ -13,10 +13,23 @@ const Container = styled.div`
 `
 
 function TodoPage() {
+  const [todos, setTodos] = useState([])
+
+  useEffect(() => {
+    async function fetchTodos() {
+      const response = await fetch('http://localhost:3000/todos')
+      const data = await response.json()
+
+      setTodos(data)
+    }
+
+    fetchTodos()
+  }, [])
+
   return (
     <Container>
       <Input />
-      <List />
+      <List todos={todos} />
       <Footer />
     </Container>
   )
