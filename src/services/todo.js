@@ -16,3 +16,11 @@ export async function updateTodo(todo) {
 
   return response.ok
 }
+
+export async function deleteTodo(id) {
+  const response = await fetch(`http://localhost:3000/todos/${id}`, {
+    method: 'DELETE',
+  })
+
+  return response.ok
+}
