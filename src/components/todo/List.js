@@ -77,13 +77,19 @@ const DeleteButton = styled.button`
   }
 `
 
-function List({ todos }) {
+function List({ todos, onUpdateDone }) {
   return (
     <Container>
-      {todos.map(({ id, label, isDone }) => {
+      {todos.map((todo) => {
+        const { id, label, isDone } = todo
+
         return (
           <Item key={id}>
-            <ToggleButton completed={isDone} type="checkbox" />
+            <ToggleButton
+              onClick={() => onUpdateDone(todo)}
+              completed={isDone}
+              type="checkbox"
+            />
             <Label completed={isDone}>{label}</Label>
             <DeleteButton />
           </Item>

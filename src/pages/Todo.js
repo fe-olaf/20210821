@@ -5,6 +5,8 @@ import Input from '../components/todo/Input'
 import List from '../components/todo/List'
 import Footer from '../components/todo/Footer'
 
+import { fetchTodos, updateTodo } from '../services/todo'
+
 const Container = styled.div`
   background: #fff;
   margin: 130px 0 40px 0;
@@ -16,20 +18,28 @@ function TodoPage() {
   const [todos, setTodos] = useState([])
 
   useEffect(() => {
-    async function fetchTodos() {
-      const response = await fetch('http://localhost:3000/todos')
-      const data = await response.json()
-
-      setTodos(data)
-    }
-
-    fetchTodos()
+    fetchAndSetTodos()
   }, [])
+
+  async function fetchAndSetTodos() {
+    setTodos(await fetchTodos())
+  }
+
+  const handleUpdateDone = async (todo) => {
+    const success = await updateTodo({
+      ...todo,
+      isDone: !todo.isDone,
+    })
+
+    if (success) {
+      fetchAndSetTodos()
+    }
+  }
 
   return (
     <Container>
       <Input />
-      <List todos={todos} />
+      <List todos={todos} onUpdateDone={handleUpdateDone} />
       <Footer />
     </Container>
   )
