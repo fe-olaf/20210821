@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import styled from 'styled-components'
 
 import Header from '../components/todo/Header'
 import List from '../components/todo/List'
 import Footer from '../components/todo/Footer'
+
+import { fetchTodos } from '../services/todo'
 
 const Container = styled.div`
   background: #fff;
@@ -14,10 +16,23 @@ const Container = styled.div`
 `
 
 function TodoPage() {
+  const [todos, setTodos] = useState([])
+
+  // componentDidMount 같이 쓸 수 있는 방법
+  useEffect(() => {
+    async function fetchAndSetTodos() {
+      const todos = await fetchTodos()
+
+      setTodos(todos)
+    }
+
+    fetchAndSetTodos()
+  }, [])
+
   return (
     <Container>
       <Header />
-      <List />
+      <List todos={todos} />
       <Footer />
     </Container>
   )
